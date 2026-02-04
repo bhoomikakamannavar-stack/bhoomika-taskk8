@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Page</title>
+    <link rel="stylesheet" href="style.css">
+
+    <script>
+        function validateLogin() {
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+
+            if (username === "" || password === "") {
+                alert("Please fill all fields");
+                return false;
+            }
+
+            let users = JSON.parse(localStorage.getItem("users")) || {};
+
+            if (users[username] && users[username] === password) {
+                alert("Login Successful");
+                return true;
+            } else {
+                alert("Invalid username or password");
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Login</h2>
+
+        <form onsubmit="return validateLogin()">
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <button type="submit">Login</button>
+        </form>
+
+        <br>
+        <a href="forgot.html">Forgot Password?</a>
+    </div>
+
+</body>
+</html>

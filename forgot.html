@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reset Password</title>
+    <link rel="stylesheet" href="style.css">
+
+    <script>
+        function validatePassword() {
+            let username = document.getElementById("username").value;
+            let pass = document.getElementById("newPassword").value;
+            let confirm = document.getElementById("confirmPassword").value;
+            let error = document.getElementById("error");
+
+            if (username === "" || pass === "" || confirm === "") {
+                error.innerText = "Please fill all fields";
+                return false;
+            }
+
+            if (pass !== confirm) {
+                error.innerText = "Passwords do not match";
+                return false;
+            }
+
+            // Get existing users
+            let users = JSON.parse(localStorage.getItem("users")) || {};
+
+            // Set/update password for this username
+            users[username] = pass;
+
+            // Save back to localStorage
+            localStorage.setItem("users", JSON.stringify(users));
+
+            alert("Password reset successful");
+            window.location.href = "login.html";
+            return false;
+        }
+    </script>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Reset Password</h2>
+
+        <form onsubmit="return validatePassword()">
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="newPassword" placeholder="New Password">
+            <input type="password" id="confirmPassword" placeholder="Confirm Password">
+            <span id="error"></span><br><br>
+            <button type="submit">Reset Password</button>
+        </form>
+
+        <br>
+        <a href="login.html">Back to Login</a>
+    </div>
+
+</body>
+</html>
